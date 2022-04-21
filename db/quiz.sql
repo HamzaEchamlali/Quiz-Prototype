@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1
--- http://www.phpmyadmin.net
+-- version 4.9.0.1
+-- https://www.phpmyadmin.net/
 --
--- Client :  localhost
--- Généré le :  Ven 28 Avril 2017 à 17:00
--- Version du serveur :  5.7.11
--- Version de PHP :  5.6.18
+-- Hôte : sql110.byetcluster.com
+-- Généré le :  jeu. 21 avr. 2022 à 06:54
+-- Version du serveur :  10.3.27-MariaDB
+-- Version de PHP :  7.2.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `dbquiz`
+-- Base de données :  `epiz_31537658_quiz`
 --
 
 -- --------------------------------------------------------
@@ -35,13 +37,13 @@ CREATE TABLE `question` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `question`
+-- Déchargement des données de la table `question`
 --
 
 INSERT INTO `question` (`id`, `titre`, `type`, `reponses`, `bonneReponse`) VALUES
-(1, 'Quelle fonction permet de transformer une chaîne en majuscules?', 'choix unique', '{\n	"0": "toUpper()",\n	"1": "upperCase()",\n	"2": "strToUpper()",\n	"3": "toUpperCase()",\n	"4": "majuscules()"\n}', 2),
-(2, 'Quelle fonction permet d\'envoyer un email?', 'choix unique', '{\r\n"0":"sendmail()",\r\n"1":"mail()",\r\n"2":"email()",\r\n"3":"post()"\r\n}', 1),
-(3, 'Quelle fonction permet d\'ajouter un élément dans un tableau?', 'choix unique', '{\r\n"0":"pop()",\r\n"1":"insert()",\r\n"2":"array_push()",\r\n"3":"push()"\r\n}', 2);
+(1, 'Quelle fonction permet de transformer une chaîne en majuscules?', 'choix unique', '{\n	\"0\": \"toUpper()\",\n	\"1\": \"upperCase()\",\n	\"2\": \"strToUpper()\",\n	\"3\": \"toUpperCase()\",\n	\"4\": \"majuscules()\"\n}', 2),
+(2, 'Quelle fonction permet d\'envoyer un email?', 'choix unique', '{\r\n\"0\":\"sendmail()\",\r\n\"1\":\"mail()\",\r\n\"2\":\"email()\",\r\n\"3\":\"post()\"\r\n}', 1),
+(3, 'Quelle fonction permet d\'ajouter un élément dans un tableau?', 'choix unique', '{\r\n\"0\":\"pop()\",\r\n\"1\":\"insert()\",\r\n\"2\":\"array_push()\",\r\n\"3\":\"push()\"\r\n}', 2);
 
 -- --------------------------------------------------------
 
@@ -55,7 +57,7 @@ CREATE TABLE `quiz` (
   `titre` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `dateCreation` datetime NOT NULL,
-  `dateDebutPublication` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateDebutPublication` datetime NOT NULL DEFAULT current_timestamp(),
   `dateFinPublication` datetime DEFAULT NULL,
   `privé` enum('Y','N') NOT NULL,
   `activated` enum('Y','N') NOT NULL,
@@ -63,7 +65,7 @@ CREATE TABLE `quiz` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `quiz`
+-- Déchargement des données de la table `quiz`
 --
 
 INSERT INTO `quiz` (`id`, `user_id`, `titre`, `description`, `dateCreation`, `dateDebutPublication`, `dateFinPublication`, `privé`, `activated`, `illustration`) VALUES
@@ -84,7 +86,7 @@ CREATE TABLE `quiz_question` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `quiz_question`
+-- Déchargement des données de la table `quiz_question`
 --
 
 INSERT INTO `quiz_question` (`id`, `quiz_id`, `question_id`) VALUES
@@ -103,17 +105,20 @@ CREATE TABLE `uq_evaluation` (
   `user_id` int(11) NOT NULL,
   `quiz_id` int(11) NOT NULL,
   `evaluation` tinyint(4) NOT NULL,
-  `dateEvaluation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `dateEvaluation` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `uq_evaluation`
+-- Déchargement des données de la table `uq_evaluation`
 --
 
 INSERT INTO `uq_evaluation` (`id`, `user_id`, `quiz_id`, `evaluation`, `dateEvaluation`) VALUES
-(1, 1, 1, 4, '2017-04-28 14:21:20'),
+(1, 1, 1, 5, '2017-04-28 14:21:20'),
 (2, 2, 1, 5, '2017-04-28 14:27:38'),
-(3, 3, 1, 4, '2017-04-28 14:27:38');
+(3, 3, 1, 4, '2017-04-28 14:27:38'),
+(4, 7, 1, 5, '2022-04-17 12:47:18'),
+(5, 8, 1, 5, '2022-04-17 14:01:42'),
+(6, 9, 1, 5, '2022-04-18 06:05:55');
 
 -- --------------------------------------------------------
 
@@ -131,7 +136,7 @@ CREATE TABLE `uq_participation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `uq_participation`
+-- Déchargement des données de la table `uq_participation`
 --
 
 INSERT INTO `uq_participation` (`id`, `user_id`, `quiz_id`, `score`, `temps`, `dateParticipation`) VALUES
@@ -153,20 +158,24 @@ CREATE TABLE `user` (
   `activated` enum('Y','N') NOT NULL,
   `email` varchar(255) NOT NULL,
   `sexe` enum('m','f') NOT NULL,
-  `dateInscription` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `dateInscription` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `user`
+-- Déchargement des données de la table `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `type`, `activated`, `email`, `sexe`, `dateInscription`) VALUES
-(1, 'marc', '', 'admin', 'Y', 'marc@sull.com', 'm', '2017-04-01 00:00:00'),
+(1, 'root', '$2y$10$0BQNalVbLWznGfii/rs3OOaF/F7SLUlqHaRN8GYHer/5SUN4rsfHK', 'admin', 'Y', 'marc@sull.com', 'm', '2017-04-01 00:00:00'),
 (2, 'bob', '', 'membre', 'Y', 'bob@sull.com', 'm', '2017-04-08 00:00:00'),
 (3, 'fred', '', 'membre', 'N', 'fred@sull.com', 'm', '2017-04-08 00:00:00'),
 (4, 'claire', '', 'membre', 'Y', 'claire@sull.com', 'f', '2017-04-15 00:00:00'),
 (5, 'king', '$2y$10$U0DRf7t6BPCbWA2Khu3uAezBBPk3rm0NqSY2MuEMQ2IuEoDKqVIn6', 'membre', 'N', 'king@sull.com', 'm', '2017-04-28 16:48:26'),
-(6, 'Mike', '$2y$10$Zj.eTY9Uk4gBeFFxZ9uLHudj0UHzhHQK2SIRbLE0O5eF4vTSLCS9W', 'membre', 'N', 'mike@sull.com', 'm', '2017-04-28 16:59:26');
+(6, 'Mike', '$2y$10$Zj.eTY9Uk4gBeFFxZ9uLHudj0UHzhHQK2SIRbLE0O5eF4vTSLCS9W', 'membre', 'N', 'mike@sull.com', 'm', '2017-04-28 16:59:26'),
+(7, 'epfc', '$2y$10$RbPF7Wk49BRo27rYTKzyiuKT5s8zi2tjEOg1vjMxaDPaIUYvtULb6', 'membre', 'Y', 'epfc@epfc.com', 'm', '2022-04-17 12:46:29'),
+(8, 'Yoevi', '$2y$10$bVcFI53LtglJeQnq9F2hDewr59mf92JAX9musvslnaHYJqcLwxX0m', 'membre', 'Y', 'cacahuete@gmail.com', 'm', '2022-04-17 13:58:26'),
+(9, 'Julie', '$2y$10$wPro2Dol9862MgdkoAfcDeXCaAtyQsNc2kPmX2vg9OpKAGBvccFn2', 'membre', 'Y', 'julie@gmail.com', 'm', '2022-04-18 06:04:03'),
+(11, 'albert', '$2y$10$o85fAH72iy0HoEIOZ6Jff.xerosopgQ72YKmKIg/dRZ1haGnPr1Fa', 'membre', 'Y', 'albert@gmail.com', 'm', '2022-04-20 05:53:17');
 
 -- --------------------------------------------------------
 
@@ -182,7 +191,7 @@ CREATE TABLE `user_meta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `user_meta`
+-- Déchargement des données de la table `user_meta`
 --
 
 INSERT INTO `user_meta` (`id`, `user_id`, `meta_key`, `meta_value`) VALUES
@@ -191,7 +200,7 @@ INSERT INTO `user_meta` (`id`, `user_id`, `meta_key`, `meta_value`) VALUES
 (3, 4, 'couleur', 'lightgreen');
 
 --
--- Index pour les tables exportées
+-- Index pour les tables déchargées
 --
 
 --
@@ -248,7 +257,7 @@ ALTER TABLE `user_meta`
   ADD KEY `user_id` (`user_id`);
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
@@ -256,36 +265,44 @@ ALTER TABLE `user_meta`
 --
 ALTER TABLE `question`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT pour la table `quiz`
 --
 ALTER TABLE `quiz`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT pour la table `quiz_question`
 --
 ALTER TABLE `quiz_question`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT pour la table `uq_evaluation`
 --
 ALTER TABLE `uq_evaluation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT pour la table `uq_participation`
 --
 ALTER TABLE `uq_participation`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
 -- AUTO_INCREMENT pour la table `user_meta`
 --
 ALTER TABLE `user_meta`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
