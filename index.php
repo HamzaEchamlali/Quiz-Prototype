@@ -34,7 +34,7 @@ if(empty($_SESSION["login"])){
 }
 
 // START CONNEXION DB
-$db = @mysqli_connect("localhost","root","","quizz");
+$db = @mysqli_connect("localhost","root","","quiz");
 
 // VERIFICATION CONNEXION DB
 if($db){

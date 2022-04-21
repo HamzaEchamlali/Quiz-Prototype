@@ -5,7 +5,7 @@ unset($_SESSION["connexion"]);
 unset($_SESSION["inscription"]);
 unset($_SESSION["type"]);
 
-$db = @mysqli_connect("localhost","root","","quizz");
+$db = @mysqli_connect("localhost","root","","quiz");
 $message;
 
 

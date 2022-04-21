@@ -7,7 +7,7 @@ unset($_SESSION["type"]);
 
 $etat_serveur;
 
-$db = @mysqli_connect("localhost", "root", "", "quizz");
+$db = @mysqli_connect("localhost", "root", "", "quiz");
 
 if($db){
     if(!empty($_POST["login"])){
