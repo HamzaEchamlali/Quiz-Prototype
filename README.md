@@ -1,20 +1,14 @@
-# Quiz
- Projet quiz
+# [Prototype] Quiz V.1.0
 
-Disponible en ligne : http://quiz.42web.io/
+Quiz is a didactic question and answer game prototype.
+Try the prototype : http://quiz.42web.io/
 
-Auteur : Hamza Echamlali
+[ Features ]
 
-Version : 1.0
-
-Fonctionnalités :
-
-- Inscription avec validation des données (login,email,mdp) ;
-- Connexion avec validation des données (login,mdp) ;
-- Authentification et vérification des sessions ;
-- Déconnexion et suppression des variable de session ;
-- Recherche de quiz par auteur/titre/date/motClef/ordre avec nom partiel ou complet ;
-- Affichage des quiz ;
-- Affichage du détail des quiz ;
-- Formulaire de quiz avec résultat finale ;
-- Evaluation des quiz.
+- Registration with data validation (login,email,password) 
+- Connection with data validation (login,mdp) 
+- Quiz search by author/title/date/keyword/order with partial or full name 
+- Display of quizzes 
+- Display of quiz details 
+- Quiz form with final result 
+- Quizzes assessment
