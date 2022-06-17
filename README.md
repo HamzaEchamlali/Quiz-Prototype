@@ -1,7 +1,7 @@
 # [Prototype] Quiz V.1.0
 
 Quiz is a didactic question and answer game prototype.
-Try the prototype : http://quiz.42web.io/
+Try the prototype on http://quiz.42web.io/
 
 [ Features ]
 
